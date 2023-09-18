@@ -1,3 +1,10 @@
 
 test:
 	go test -v ./use_cases/**
+
+test-cover:
+	go test -cover ./use_cases/**
+
+test-report:
+	go test -coverprofile=report.out ./use_cases/**
+	go tool cover -html report.out
