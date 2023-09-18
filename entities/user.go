@@ -1,17 +1,17 @@
 package entities
 
 type User struct {
-  id       string
-  username string
-  password string
-  email    string
+  Id       string
+  Username string
+  Password string
+  Email    string
 }
 
-func (u User) New(id, username, password, email string) User {
+func NewUser(id, username, password, email string) User {
   return User{
-    id: id,
-    username: username,
-    password: password,
-    email: email,
+    Id: id,
+    Username: username,
+    Password: password,
+    Email: email,
   }
 }
