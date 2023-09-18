@@ -1,3 +1,3 @@
 
 test:
-	go test -v ./src/use_cases/**
+	go test -v ./use_cases/**
