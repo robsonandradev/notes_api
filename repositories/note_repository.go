@@ -1,0 +1,16 @@
+package repositories
+
+import (
+  "fmt"
+  e "github.com/robsonandradev/notes_api/entities"
+)
+
+type INoteRepository interface {
+  CreateNote(author, title, content string) (n e.Note, err error)
+}
+
+type NoteRepository struct {}
+
+func (nr *NoteRepository) CreateNote(author, title, content string) (n e.Note, err error) {
+  return e.Note{}, fmt.Errorf("Something goes wrong!")
+}
