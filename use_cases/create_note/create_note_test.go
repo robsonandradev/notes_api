@@ -47,6 +47,26 @@ func TestCreateNoteEmptyAuthor(t *testing.T) {
   })
 }
 
+func TestCreateNoteEmptyTitle(t *testing.T) {
+  t.Run("when title is empty should return an error", func(t *testing.T) {
+    want := fmt.Errorf("Title field shouldn't be empty")
+    _, have := createNote.Run("John Wick", "", "login ipson")
+    if want.Error() != have.Error() {
+      t.Errorf("want %s, and have %s", want, have)
+    }
+  })
+}
+
+func TestCreateNoteEmptyContent(t *testing.T) {
+  t.Run("when content is empty should return an error", func(t *testing.T) {
+    want := fmt.Errorf("Content field shouldn't be empty")
+    _, have := createNote.Run("John Wick", "My Note", "")
+    if want.Error() != have.Error() {
+      t.Errorf("want %s, and have %s", want, have)
+    }
+  })
+}
+
 // starting mocks
 type NoteRepositoryMock struct {}
 
