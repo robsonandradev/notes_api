@@ -130,6 +130,7 @@ func TestGetNoteWhichDoesntExist(t *testing.T) {
 
 type NoteRepositoryMock struct {}
 
+// TODO: GetNote* should return array of notes
 func (nr *NoteRepositoryMock) CreateNote(author, title, content string) (n e.Note, err error) {return}
 func (NoteRepositoryMock) GetNoteByTitle(title string) (n e.Note, err error) {
   if title != "my note" {
