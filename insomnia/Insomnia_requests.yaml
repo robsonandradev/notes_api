@@ -1,0 +1,77 @@
+---
+_type: export
+__export_format: 4
+__export_date: 2023-09-30T16:05:35.531Z
+__export_source: insomnia.desktop.app:v8.1.0
+resources:
+  - _id: req_7efa6943f719405e8aacf6b6fcc3dd64
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
+    modified: 1696089815361
+    created: 1696089257564
+    url: "{{ _.base_url }}/login"
+    name: login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "john.wick@gmail.com",
+        	"password": "john.wick"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.1.0
+    authentication: {}
+    metaSortKey: -1696089257565
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_37686dffbc5f43c1a109c0f20a504806
+    parentId: null
+    modified: 1696089052998
+    created: 1696089052998
+    name: note_api
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: env_5275da00c051daa2ba126347a544feebfeca83de
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
+    modified: 1696089053009
+    created: 1696089053009
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1696089053009
+    _type: environment
+  - _id: jar_5275da00c051daa2ba126347a544feebfeca83de
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
+    modified: 1696089053015
+    created: 1696089053015
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: env_80729f20f95d496983a1b3ed19f3d7aa
+    parentId: env_5275da00c051daa2ba126347a544feebfeca83de
+    modified: 1696089821513
+    created: 1696089085526
+    name: dev
+    data:
+      base_url: localhost:3000
+    dataPropertyOrder:
+      "&":
+        - base_url
+    color: "#7d69cb"
+    isPrivate: false
+    metaSortKey: 1696089085525
+    _type: environment

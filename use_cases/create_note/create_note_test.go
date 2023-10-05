@@ -76,11 +76,6 @@ func (nr *NoteRepositoryMock) CreateNote(author, title, content string) (n e.Not
   note.Content = content
   return note, nil
 }
-
-/*
-type NRWrongNameMock struct {}
-
-func (nr *NRWrongNameMock) CreateNote(author, title, content string) (n e.Note, err error) {
-  return e.Note{}, fmt.Errorf("Something goes wrong!")
-}
-*/
+func (NoteRepositoryMock) GetNoteByTitle(title string) (n e.Note, err error) {return}
+func (NoteRepositoryMock) GetNotesByAuthor(author string) (n e.Note, err error) {return}
+func (NoteRepositoryMock) GetNoteByAuthorAndTitle(author, title string) (n e.Note, err error) {return}
