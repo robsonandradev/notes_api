@@ -1,3 +1,5 @@
+run:
+	go run .
 
 test:
 	go test -v ./use_cases/**
