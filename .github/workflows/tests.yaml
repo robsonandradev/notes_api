@@ -20,4 +20,5 @@ jobs:
 
       - name: run tests
         run: |
+          go test -v ./use_cases/**
           go test -cover ./use_cases/**
