@@ -56,6 +56,28 @@ func TestSuccessfulGetNote(t *testing.T) {
       t.Errorf("want %s, and have %s", want, have)
     }
   })
+
+  t.Run("when search for a existent note by author and title and author field is empty then return note", func(t *testing.T) {
+    want := note
+    have, err := readNote.GetNoteByAuthorAndTitle("", "my note")
+    if err != nil {
+      panic(err)
+    }
+    if !reflect.DeepEqual(want, have) {
+      t.Errorf("want %s, but have %s", want, have)
+    }
+  })
+
+  t.Run("when search for a existent note by author and title and title field is empty then return note", func(t *testing.T) {
+    want := note
+    have, err := readNote.GetNoteByAuthorAndTitle("john wick", "")
+    if err != nil {
+      panic(err)
+    }
+    if !reflect.DeepEqual(want, have) {
+      t.Errorf("want %s, but have %s", want, have)
+    }
+  })
 }
 
 func TestGetNoteWithEmptyField(t *testing.T) {
@@ -75,17 +97,9 @@ func TestGetNoteWithEmptyField(t *testing.T) {
     }
   })
 
-  t.Run("when search for notes by author and title and author field is empty then return an error", func(t *testing.T) {
-    want := fmt.Errorf("Field author should not be empty!")
-    _, have := readNote.GetNoteByAuthorAndTitle("", "my note")
-    if have == nil || want.Error() != have.Error() {
-      t.Errorf("want %s, but have %s", want, have)
-    }
-  })
-
-  t.Run("when search for notes by author and title and title field is empty then return an error", func(t *testing.T) {
-    want := fmt.Errorf("Field title should not be empty!")
-    _, have := readNote.GetNoteByAuthorAndTitle("john wick", "")
+  t.Run("when search for note by author and title and fields are empty retun error", func(t *testing.T) {
+    want    := fmt.Errorf("Field author and title should not be empty!")
+    _, have := readNote.GetNoteByAuthorAndTitle("", "")
     if have == nil || want.Error() != have.Error() {
       t.Errorf("want %s, but have %s", want, have)
     }
