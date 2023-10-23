@@ -6,12 +6,13 @@ import (
   "fmt"
   "github.com/gorilla/mux"
   hc "github.com/robsonandradev/notes_api/use_cases/health"
+  "github.com/robsonandradev/notes_api/use_cases/login"
 )
 
 func main() {
   port := 3000
   router := mux.NewRouter()
-  hc.Set(router)
+  setControllers(router)
   router.Use(loggingMiddleware, headerMiddleware)
   svc := &http.Server{
     Handler: router,
@@ -19,6 +20,11 @@ func main() {
   }
   log.Println(fmt.Sprintf("magic happens on %d", port))
   log.Fatal(svc.ListenAndServe())
+}
+
+func setControllers(r *mux.Router) {
+  hc.Set(r)
+  login.Set(r)
 }
 
 func loggingMiddleware(next http.Handler) http.Handler {

@@ -12,10 +12,12 @@ type IUserRepository interface {
 
 type UserRepository struct {}
 
+// TODO: Implements database query
 func (ur *UserRepository) GetUserByUsername(username string) (e.User, error) {
   return e.User{}, fmt.Errorf("user not found!")
 }
 
+// TODO: Implements database query
 func (ur *UserRepository) GetUserByUsernameAndPassword(username, password string) (e.User, error) {
   return e.User{}, fmt.Errorf("wrong password!")
 }
