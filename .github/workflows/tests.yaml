@@ -4,7 +4,7 @@ name: unittests
 on:
   push:
     branches: ["feat/unittest-action"]
-  pull_requests:
+  pull_request:
     branches: ["master"]
 
 jobs:
