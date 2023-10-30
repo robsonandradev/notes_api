@@ -2,6 +2,7 @@ package login
 
 import (
   "time"
+  "io"
   "encoding/json"
   "net/http"
   "github.com/gorilla/mux"
@@ -13,14 +14,19 @@ type responseToken struct {
   Token string `json:"token"`
 }
 
+type requestBody struct {
+  Username string `json:"username"`
+  Password string `json:"password"`
+}
+
 func Set(router *mux.Router) {
   router.HandleFunc("/login", exec).Methods("POST")
 }
 
 func exec(w http.ResponseWriter, r *http.Request) {
   login := New(&repos.UserRepository{})
-  vars := mux.Vars(r)
-  user, err := login.doLogin(vars["username"], vars["password"])
+  u := getRequestBody(r.Body)
+  user, err := login.doLogin(u.Username, u.Password)
   if err != nil {
     w.WriteHeader(http.StatusUnauthorized)
     json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
@@ -30,6 +36,13 @@ func exec(w http.ResponseWriter, r *http.Request) {
   tokenString, err := getToken(user.Username)
   if err != nil { panic(err) }
   json.NewEncoder(w).Encode(responseToken{Token: tokenString})
+}
+
+func getRequestBody(b io.ReadCloser) *requestBody {
+  var u requestBody
+  err := json.NewDecoder(b).Decode(&u)
+  if err != nil { panic(err) }
+  return &u
 }
 
 func getToken(u string) (string, error) {
