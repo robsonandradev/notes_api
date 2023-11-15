@@ -2,6 +2,7 @@ package repositories
 
 import (
   "fmt"
+  "log"
   e "github.com/robsonandradev/notes_api/entities"
 )
 
@@ -10,20 +11,36 @@ type IUserRepository interface {
   GetUserByUsername(username string) (e.User, error)
 }
 
-type UserRepository struct {}
-
-// TODO: Implements database query
-func (ur *UserRepository) GetUserByUsername(username string) (e.User, error) {
-  if username == "john.wick@gmail.com" {
-    return e.NewUser("1", username, "123", username), nil
-  }
-  return e.User{}, fmt.Errorf("user not found!")
+type UserRepository struct {
+  PG *PostgresCon
 }
 
-// TODO: Implements database query
-func (ur *UserRepository) GetUserByUsernameAndPassword(username, password string) (e.User, error) {
-  if username == "john.wick@gmail.com" && password == "john.wick" {
-    return e.NewUser("1", username, password, username), nil
+func NewUserRepository(connector string) (*UserRepository, error) {
+  if connector == "postgres" {
+    ur := &UserRepository{ PG: &PostgresCon{} }
+    return ur, nil
   }
-  return e.User{}, fmt.Errorf("wrong password!")
+  return &UserRepository{}, fmt.Errorf("Unknow database connector")
+}
+
+func (ur *UserRepository) GetUserByUsername(username string) (e.User, error) {
+  if err := ur.PG.Connect(); err != nil {
+    return e.User{}, err
+  }
+  defer ur.PG.Close()
+  user := e.User{}
+  r := ur.PG.DB.First(&user, "username = ?", username)
+  if r.Error != nil { log.Println("User not found!") }
+  return user, r.Error
+}
+
+func (ur *UserRepository) GetUserByUsernameAndPassword(username, password string) (e.User, error) {
+  if err := ur.PG.Connect(); err != nil {
+    return e.User{}, err
+  }
+  defer ur.PG.Close()
+  user := e.User{}
+  r := ur.PG.DB.First(&user, "username = ? and password = ?", username, password)
+  if r.Error != nil { log.Println("Wrong password!") }
+  return user, r.Error
 }

@@ -24,7 +24,9 @@ func Set(router *mux.Router) {
 }
 
 func exec(w http.ResponseWriter, r *http.Request) {
-  login := New(&repos.UserRepository{})
+  repo, err := repos.NewUserRepository("postgres")
+  if err != nil { panic(err) }
+  login := New(repo)
   u := getRequestBody(r.Body)
   user, err := login.doLogin(u.Username, u.Password)
   if err != nil {
