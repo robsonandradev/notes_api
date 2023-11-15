@@ -12,7 +12,7 @@ type IUserRepository interface {
 }
 
 type UserRepository struct {
-  PG *PostgresCon
+  PG DBConnection
 }
 
 func NewUserRepository(connector string) (*UserRepository, error) {
@@ -24,23 +24,25 @@ func NewUserRepository(connector string) (*UserRepository, error) {
 }
 
 func (ur *UserRepository) GetUserByUsername(username string) (e.User, error) {
-  if err := ur.PG.Connect(); err != nil {
+  db, err := ur.PG.Connect()
+  if err != nil {
     return e.User{}, err
   }
-  defer ur.PG.Close()
+  defer ur.PG.Close(db)
   user := e.User{}
-  r := ur.PG.DB.First(&user, "username = ?", username)
+  r := db.First(&user, "username = ?", username)
   if r.Error != nil { log.Println("User not found!") }
   return user, r.Error
 }
 
 func (ur *UserRepository) GetUserByUsernameAndPassword(username, password string) (e.User, error) {
-  if err := ur.PG.Connect(); err != nil {
+  db, err := ur.PG.Connect()
+  if err != nil {
     return e.User{}, err
   }
-  defer ur.PG.Close()
+  defer ur.PG.Close(db)
   user := e.User{}
-  r := ur.PG.DB.First(&user, "username = ? and password = ?", username, password)
+  r := db.First(&user, "username = ? and password = ?", username, password)
   if r.Error != nil { log.Println("Wrong password!") }
   return user, r.Error
 }

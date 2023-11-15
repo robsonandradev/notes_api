@@ -7,11 +7,14 @@ import (
   "gorm.io/driver/postgres"
 )
 
-type PostgresCon struct {
-  DB *gorm.DB
+type DBConnection interface {
+  Connect() (*gorm.DB, error)
+  Close(*gorm.DB)
 }
 
-func (p *PostgresCon) Connect() (error) {
+type PostgresCon struct {}
+
+func (p *PostgresCon) Connect() (*gorm.DB, error) {
   //TODO: Receive connection data from env vars
   //dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
   host     := "localhost"
@@ -23,15 +26,13 @@ func (p *PostgresCon) Connect() (error) {
     "host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=America/Sao_Paulo",
     host, dbuser, dbpasswd, dbname, dbport,
   )
-  db, err := gorm.Open(postgres.Open(dns), &gorm.Config{
+  return gorm.Open(postgres.Open(dns), &gorm.Config{
     Logger: logger.Default.LogMode(logger.Silent),
   })
-  p.DB = db
-  return err
 }
 
-func (p *PostgresCon) Close() {
-  sqlDB, err := p.DB.DB()
+func (p *PostgresCon) Close(db *gorm.DB) {
+  sqlDB, err := db.DB()
   if err != nil { panic(err) }
   sqlDB.Close()
 }
