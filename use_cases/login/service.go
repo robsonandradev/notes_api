@@ -17,7 +17,11 @@ func New(ur repos.IUserRepository) Login {
 func (l Login) doLogin(username, password string) (user e.User, err error) {
   log.Println("logging with user:", username)
   user, err = l.userRepository.GetUserByUsername(username)
-  if err != nil {return}
+  if err != nil {
+    log.Println("User not found!")
+    return
+  }
   user, err = l.userRepository.GetUserByUsernameAndPassword(username, password)
+  if err != nil { log.Println("Wrong password!") }
   return
 }

@@ -35,7 +35,7 @@ func exec(w http.ResponseWriter, r *http.Request) {
     return
   }
   w.WriteHeader(http.StatusOK)
-  tokenString, err := getToken(user.Username)
+  tokenString, err := generateToken(user.Username)
   if err != nil { panic(err) }
   json.NewEncoder(w).Encode(responseToken{Token: tokenString})
 }
@@ -47,14 +47,15 @@ func getRequestBody(b io.ReadCloser) *requestBody {
   return &u
 }
 
-func getToken(u string) (string, error) {
+func generateToken(u string) (string, error) {
   // TODO: Figure out which data will be a good fit for this token
   token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
     "username": u,
     "nbf": time.Now().UTC().Unix(),
   })
   // TODO: Figure out a better way to set this secret
-  secret, err := jwt.SigningMethodHS256.Sign("root", []byte("mysecret"))
+  secret, err := jwt.SigningMethodES256.Sign("root", []byte("mysecret"))
+  //secret, err := jwt.SigningMethodHS256.Sign("root", []byte("mysecret"))
   if err != nil {
     return "", err
   }

@@ -2,7 +2,6 @@ package repositories
 
 import (
   "fmt"
-  "log"
   e "github.com/robsonandradev/notes_api/entities"
 )
 
@@ -31,7 +30,6 @@ func (ur *UserRepository) GetUserByUsername(username string) (e.User, error) {
   defer ur.PG.Close(db)
   user := e.User{}
   r := db.First(&user, "username = ?", username)
-  if r.Error != nil { log.Println("User not found!") }
   return user, r.Error
 }
 
@@ -43,6 +41,5 @@ func (ur *UserRepository) GetUserByUsernameAndPassword(username, password string
   defer ur.PG.Close(db)
   user := e.User{}
   r := db.First(&user, "username = ? and password = ?", username, password)
-  if r.Error != nil { log.Println("Wrong password!") }
   return user, r.Error
 }
