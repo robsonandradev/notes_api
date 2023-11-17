@@ -1,11 +1,11 @@
 _type: export
 __export_format: 4
-__export_date: 2023-10-23T22:15:49.667Z
-__export_source: insomnia.desktop.app:v8.3.0
+__export_date: 2023-11-17T22:40:32.494Z
+__export_source: insomnia.desktop.app:v8.4.2
 resources:
   - _id: req_7efa6943f719405e8aacf6b6fcc3dd64
     parentId: wrk_37686dffbc5f43c1a109c0f20a504806
-    modified: 1698099296676
+    modified: 1700080998386
     created: 1696089257564
     url: "{{ _.base_url }}/login"
     name: login
@@ -42,6 +42,35 @@ resources:
     description: ""
     scope: collection
     _type: workspace
+  - _id: req_f5b12f4374ce4a3b80ec2f92ba569d3d
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
+    modified: 1700259315604
+    created: 1700258302452
+    url: "{{ _.base_url }}/health"
+    name: healthCheck
+    description: ""
+    method: GET
+    body:
+      mimeType: application/json
+      text: "{}"
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.1.0
+    authentication:
+      type: bearer
+      token: "{{ _.Authorization }}"
+    metaSortKey: -1696089257515
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: env_5275da00c051daa2ba126347a544feebfeca83de
     parentId: wrk_37686dffbc5f43c1a109c0f20a504806
     modified: 1696089053009
