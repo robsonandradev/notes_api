@@ -96,8 +96,7 @@ resources:
     name: dev
     data:
       base_url: localhost:3000
-      Authorization: "{% response 'body', 'req_7efa6943f719405e8aacf6b6fcc3dd64',
-        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+      Authorization: "{% response 'body', 'req_7efa6943f719405e8aacf6b6fcc3dd64', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
     dataPropertyOrder:
       "&":
         - base_url
