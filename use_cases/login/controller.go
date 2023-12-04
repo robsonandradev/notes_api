@@ -6,7 +6,6 @@ import (
   "encoding/json"
   "net/http"
   "log"
-  "fmt"
   "strings"
   "github.com/gorilla/mux"
   "github.com/golang-jwt/jwt/v5"
@@ -22,13 +21,15 @@ type requestBody struct {
   Password string `json:"password"`
 }
 
-type Login struct {}
-
-func (l Login) Set(router *mux.Router) {
-  router.HandleFunc("/login", exec).Methods("POST")
+type LoginController struct {
+  jwtClaims *jwt.RegisteredClaims
 }
 
-func exec(w http.ResponseWriter, r *http.Request) {
+func (l *LoginController) Set(router *mux.Router) {
+  router.HandleFunc("/login", l.exec).Methods("POST")
+}
+
+func (l *LoginController) exec(w http.ResponseWriter, r *http.Request) {
   repo, err := repos.NewUserRepository("postgres")
   if err != nil { panic(err) }
   login := New(repo)
@@ -36,11 +37,10 @@ func exec(w http.ResponseWriter, r *http.Request) {
   user, err := login.doLogin(u.Username, u.Password)
   if err != nil {
     w.WriteHeader(http.StatusUnauthorized)
-    //json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
     setErrors(w, err.Error())
     return
   }
-  tokenString, err := signin(user.Username)
+  tokenString, err := l.signin(user.Username)
   if err != nil {
     w.WriteHeader(http.StatusInternalServerError)
     setErrors(w, err.Error())
@@ -61,52 +61,55 @@ func getRequestBody(b io.ReadCloser) *requestBody {
   return &u
 }
 
-func signin(u string) (string, error) {
+func (l *LoginController) signin(u string) (string, error) {
   // TODO: Figure out which data will be a good fit for this token
 	expirationTime := time.Now().Add(5 * time.Minute)
-  token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-    "username": u,
-    "exp": expirationTime.Unix(),
-  })
-  // TODO: Receive the secret by environment variable
-  secret, err := jwt.SigningMethodHS256.Sign("root", []byte("mysecret"))
-  if err != nil {
-    return "", err
+  claims := &jwt.RegisteredClaims{
+    ExpiresAt: jwt.NewNumericDate(expirationTime),
+    Issuer: "Note API",
+    Subject: u,
   }
-  return token.SignedString(secret)
+  l.jwtClaims = claims
+  log.Println(l.jwtClaims)
+  token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+  // TODO: Receive the secret by environment variable
+  return token.SignedString([]byte("mysecret"))
 }
 
-func (l Login) AuthenticationMiddleware(next http.Handler) http.Handler {
+func (l *LoginController) AuthenticationMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
     if r.RequestURI == "/login" {
       next.ServeHTTP(w, r)
       return
     }
 		authArr := strings.Split(r.Header.Get("Authorization"), " ")
-    errorMsg := map[string]string{"error": "user is not logged in"}
+    errorMsg := "user is not logged in"
     if len(authArr) < 2 {
       w.WriteHeader(http.StatusUnauthorized)
-      json.NewEncoder(w).Encode(errorMsg)
+      setErrors(w, errorMsg)
       return
     }
     tokenString := authArr[1]
-    log.Println(tokenString)
     parser := jwt.Parser{}
-    token, err := parser.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
-      //if _, ok := t.Method.(*jwt.SigningMethodHS256); !ok {
-      log.Println(t)
-      if !t.Valid {
-        return nil, fmt.Errorf("Unexpected signing method: %v", t.Header["alg"])
-      }
-      return tokenString, nil
+    expirationTime := time.Now().Add(5 * time.Minute)
+    if l.jwtClaims == nil {
+      w.WriteHeader(http.StatusUnauthorized)
+      log.Println("Empty jwtClaims!")
+      setErrors(w, errorMsg)
+      return
+    }
+    l.jwtClaims.ExpiresAt = jwt.NewNumericDate(expirationTime)
+    _, err := parser.ParseWithClaims(tokenString, l.jwtClaims, func(t *jwt.Token) (interface{}, error) {
+      // TODO: Receive the secret by environment variable
+      mySigningKey := []byte("mysecret")
+      return mySigningKey, nil
     })
     if err != nil {
       w.WriteHeader(http.StatusUnauthorized)
       log.Println(err)
-      json.NewEncoder(w).Encode(errorMsg)
+      setErrors(w, errorMsg)
       return
     }
-    log.Println(token.Valid)
     next.ServeHTTP(w, r)
 	})
 }
