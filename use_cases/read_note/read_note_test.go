@@ -25,7 +25,7 @@ func TestMain(m *testing.M) {
 
 func TestSuccessfulGetNote(t *testing.T) {
   t.Run("when search for note by title and note exists then return the note", func (t *testing.T) {
-    want := note
+    want := []e.Note{note}
     have, err := readNote.GetNoteByTitle("my note")
     if err != nil {
       panic(err)
@@ -36,7 +36,7 @@ func TestSuccessfulGetNote(t *testing.T) {
   })
 
   t.Run("when search for notes by author and note exists then return the note", func (t *testing.T) {
-    want := note
+    want := []e.Note{note}
     have, err := readNote.GetNotesByAuthor("john wick")
     if err != nil {
       panic(err)
@@ -47,7 +47,7 @@ func TestSuccessfulGetNote(t *testing.T) {
   })
 
   t.Run("when search for note by author and title and note exists then return the note", func (t *testing.T) {
-    want := note
+    want := []e.Note{note}
     have, err := readNote.GetNoteByAuthorAndTitle("john wick", "my note")
     if err != nil {
       panic(err)
@@ -58,7 +58,7 @@ func TestSuccessfulGetNote(t *testing.T) {
   })
 
   t.Run("when search for a existent note by author and title and author field is empty then return note", func(t *testing.T) {
-    want := note
+    want := []e.Note{note}
     have, err := readNote.GetNoteByAuthorAndTitle("", "my note")
     if err != nil {
       panic(err)
@@ -69,7 +69,7 @@ func TestSuccessfulGetNote(t *testing.T) {
   })
 
   t.Run("when search for a existent note by author and title and title field is empty then return note", func(t *testing.T) {
-    want := note
+    want := []e.Note{note}
     have, err := readNote.GetNoteByAuthorAndTitle("john wick", "")
     if err != nil {
       panic(err)
@@ -144,28 +144,27 @@ func TestGetNoteWhichDoesntExist(t *testing.T) {
 
 type NoteRepositoryMock struct {}
 
-// TODO: GetNote* should return array of notes
 func (nr *NoteRepositoryMock) CreateNote(author, title, content string) (n e.Note, err error) {return}
-func (NoteRepositoryMock) GetNoteByTitle(title string) (n e.Note, err error) {
+func (NoteRepositoryMock) GetNoteByTitle(title string) (n []e.Note, err error) {
   if title != "my note" {
     err = fmt.Errorf("Note not found!")
     return
   }
-  n = note
+  n = []e.Note{note}
   return
 }
-func (NoteRepositoryMock) GetNotesByAuthor(author string) (n e.Note, err error) {
+func (NoteRepositoryMock) GetNotesByAuthor(author string) (n []e.Note, err error) {
   if author != "john wick" {
     err = fmt.Errorf("Note not found!")
     return
   }
-  n = note
+  n = []e.Note{note}
   return
 }
-func (NoteRepositoryMock) GetNoteByAuthorAndTitle(author, title string) (n e.Note, err error) {
+func (NoteRepositoryMock) GetNoteByAuthorAndTitle(author, title string) (n []e.Note, err error) {
   if author == "john wick" && title == "my note" {
-    n = note
+    n = []e.Note{note}
     return
   }
-  return e.Note{}, fmt.Errorf("Note not found!")
+  return []e.Note{}, fmt.Errorf("Note not found!")
 }
