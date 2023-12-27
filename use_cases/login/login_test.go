@@ -7,7 +7,7 @@ import (
   e "github.com/robsonandradev/notes_api/entities"
 )
 
-var login Login
+var login loginSvc
 
 func TestMain(m *testing.M) {
   mock := UserRepositoryMock{}
