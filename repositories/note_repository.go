@@ -7,10 +7,9 @@ import (
 
 type INoteRepository interface {
   CreateNote(author, title, content string) (n e.Note, err error)
-  // TODO: GetNote* should return array of notes
-  GetNoteByTitle(title string) (n e.Note, err error)
-  GetNotesByAuthor(author string) (n e.Note, err error)
-  GetNoteByAuthorAndTitle(author, title string) (n e.Note, err error)
+  GetNoteByTitle(title string) (n []e.Note, err error)
+  GetNotesByAuthor(author string) (n []e.Note, err error)
+  GetNoteByAuthorAndTitle(author, title string) (n []e.Note, err error)
 }
 
 type NoteRepository struct {}

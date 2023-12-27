@@ -77,6 +77,6 @@ func (nr *NoteRepositoryMock) CreateNote(author, title, content string) (n e.Not
   return note, nil
 }
 
-func (NoteRepositoryMock) GetNoteByTitle(title string) (n e.Note, err error) {return}
-func (NoteRepositoryMock) GetNotesByAuthor(author string) (n e.Note, err error) {return}
-func (NoteRepositoryMock) GetNoteByAuthorAndTitle(author, title string) (n e.Note, err error) {return}
+func (NoteRepositoryMock) GetNoteByTitle(title string) (n []e.Note, err error) {return}
+func (NoteRepositoryMock) GetNotesByAuthor(author string) (n []e.Note, err error) {return}
+func (NoteRepositoryMock) GetNoteByAuthorAndTitle(author, title string) (n []e.Note, err error) {return}
