@@ -3,6 +3,7 @@ package repositories
 import (
   "fmt"
   e "github.com/robsonandradev/notes_api/entities"
+  "github.com/robsonandradev/notes_api/config"
 )
 
 type INoteRepository interface {
@@ -17,7 +18,8 @@ type NoteRepository struct {
 }
 
 func NewNoteRepository(connector string) (*NoteRepository, error) {
-  if connector == "postgres" {
+  consts := config.NewConstants()
+  if connector == consts.POSTGRES {
     ur := &NoteRepository{ PG: &PostgresCon{} }
     return ur, nil
   }

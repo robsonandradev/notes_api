@@ -10,6 +10,7 @@ import (
   "github.com/gorilla/mux"
   "github.com/golang-jwt/jwt/v5"
   repos "github.com/robsonandradev/notes_api/repositories"
+  "github.com/robsonandradev/notes_api/config"
 )
 
 type responseToken struct {
@@ -30,7 +31,8 @@ func (l *LoginController) Set(router *mux.Router) {
 }
 
 func (l *LoginController) exec(w http.ResponseWriter, r *http.Request) {
-  repo, err := repos.NewUserRepository("postgres")
+  consts := config.NewConstants()
+  repo, err := repos.NewUserRepository(consts.POSTGRES)
   if err != nil { panic(err) }
   login := New(repo)
   u := getRequestBody(r.Body)

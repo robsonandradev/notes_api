@@ -6,6 +6,7 @@ import (
   "net/http"
   "github.com/gorilla/mux"
   repos "github.com/robsonandradev/notes_api/repositories"
+  "github.com/robsonandradev/notes_api/config"
 )
 
 type ReadNoteController struct {}
@@ -19,7 +20,8 @@ func (c *ReadNoteController) Set(router *mux.Router) {
 }
 
 func (c *ReadNoteController) exec(w http.ResponseWriter, r *http.Request) {
-  repo, err := repos.NewNoteRepository("postgres")
+  consts := config.NewConstants()
+  repo, err := repos.NewNoteRepository(consts.POSTGRES)
   if err != nil {
     internalServerError(w, err)
     return
