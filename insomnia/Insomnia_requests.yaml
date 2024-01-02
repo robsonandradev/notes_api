@@ -1,11 +1,11 @@
 _type: export
 __export_format: 4
-__export_date: 2023-11-17T22:40:32.494Z
-__export_source: insomnia.desktop.app:v8.4.2
+__export_date: 2024-01-02T20:08:28.697Z
+__export_source: insomnia.desktop.app:v8.5.1
 resources:
-  - _id: req_7efa6943f719405e8aacf6b6fcc3dd64
-    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
-    modified: 1700080998386
+  - _id: req_8c99ad7cf86145ec9eb7ad45e04e6c60
+    parentId: wrk_scratchpad
+    modified: 1701528500397
     created: 1696089257564
     url: "{{ _.base_url }}/login"
     name: login
@@ -34,17 +34,54 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: wrk_37686dffbc5f43c1a109c0f20a504806
+  - _id: wrk_scratchpad
     parentId: null
-    modified: 1696089052998
-    created: 1696089052998
-    name: note_api
+    modified: 1698098242533
+    created: 1698098242533
+    name: Scratch Pad
     description: ""
     scope: collection
     _type: workspace
-  - _id: req_f5b12f4374ce4a3b80ec2f92ba569d3d
-    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
-    modified: 1700259315604
+  - _id: req_57319f0a598f46758f494a1f47ee20dd
+    parentId: wrk_scratchpad
+    modified: 1704058882188
+    created: 1704056654124
+    url: "{{ _.base_url }}/notes"
+    name: getNotes
+    description: ""
+    method: GET
+    body:
+      mimeType: application/json
+      text: ""
+    parameters:
+      - id: pair_173eeb6e820a4931b2f79d62a3ad19df
+        name: author
+        value: Elon Musk
+        description: ""
+      - id: pair_4e23506600cd4a93ac460b11564a4566
+        name: title
+        value: ""
+        description: ""
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.1.0
+    authentication:
+      type: bearer
+      token: "{{ _.Authorization }}"
+    metaSortKey: -1696089257540
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8aca5c537ae94b1eb0aaa48576372612
+    parentId: wrk_scratchpad
+    modified: 1701389722661
     created: 1700258302452
     url: "{{ _.base_url }}/health"
     name: healthCheck
@@ -71,32 +108,33 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: env_5275da00c051daa2ba126347a544feebfeca83de
-    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
-    modified: 1696089053009
-    created: 1696089053009
+  - _id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    parentId: wrk_scratchpad
+    modified: 1701387261124
+    created: 1701387261124
     name: Base Environment
     data: {}
     dataPropertyOrder: null
     color: null
     isPrivate: false
-    metaSortKey: 1696089053009
+    metaSortKey: 1701387261124
     _type: environment
-  - _id: jar_5275da00c051daa2ba126347a544feebfeca83de
-    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
-    modified: 1696089053015
-    created: 1696089053015
+  - _id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    parentId: wrk_scratchpad
+    modified: 1701387261126
+    created: 1701387261126
     name: Default Jar
     cookies: []
     _type: cookie_jar
-  - _id: env_80729f20f95d496983a1b3ed19f3d7aa
-    parentId: env_5275da00c051daa2ba126347a544feebfeca83de
-    modified: 1698099267931
+  - _id: env_c07c74f4a73c430ba790a23772e44969
+    parentId: env_99d30891da4bdcebc63947a8fc17f076de878684
+    modified: 1701389781487
     created: 1696089085526
     name: dev
     data:
       base_url: localhost:3000
-      Authorization: "{% response 'body', 'req_7efa6943f719405e8aacf6b6fcc3dd64', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+      Authorization: "{% response 'body', 'req_8c99ad7cf86145ec9eb7ad45e04e6c60',
+        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
     dataPropertyOrder:
       "&":
         - base_url
