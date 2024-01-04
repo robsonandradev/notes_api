@@ -80,7 +80,7 @@ func (l *LoginController) signin(u string) (string, error) {
 
 func (l *LoginController) AuthenticationMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    if r.RequestURI == "/login" {
+    if ignoredURIs(r.RequestURI) {
       next.ServeHTTP(w, r)
       return
     }
@@ -114,4 +114,8 @@ func (l *LoginController) AuthenticationMiddleware(next http.Handler) http.Handl
     }
     next.ServeHTTP(w, r)
 	})
+}
+
+func ignoredURIs(uri string) bool {
+  return uri == "/login" || uri == "/health"
 }
