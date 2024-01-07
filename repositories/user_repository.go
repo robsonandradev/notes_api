@@ -3,6 +3,7 @@ package repositories
 import (
   "fmt"
   e "github.com/robsonandradev/notes_api/entities"
+  "github.com/robsonandradev/notes_api/config"
 )
 
 type IUserRepository interface {
@@ -15,7 +16,8 @@ type UserRepository struct {
 }
 
 func NewUserRepository(connector string) (*UserRepository, error) {
-  if connector == "postgres" {
+  consts := config.NewConstants()
+  if connector == consts.POSTGRES {
     ur := &UserRepository{ PG: &PostgresCon{} }
     return ur, nil
   }

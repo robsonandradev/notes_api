@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	hc "github.com/robsonandradev/notes_api/use_cases/health"
 	"github.com/robsonandradev/notes_api/use_cases/login"
+	"github.com/robsonandradev/notes_api/use_cases/read_note"
 	"log"
 	"net/http"
 )
@@ -26,6 +27,7 @@ func main() {
 func setControllers(r *mux.Router, l *login.LoginController) {
 	hc.Set(r)
 	l.Set(r)
+  readnote.NewReadNoteController().Set(r)
 }
 
 func logMiddleware(next http.Handler) http.Handler {
