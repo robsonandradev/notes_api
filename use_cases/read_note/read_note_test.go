@@ -7,12 +7,13 @@ import (
   "fmt"
   "testing"
   e "github.com/robsonandradev/notes_api/entities"
-  //nr "github.com/robsonandradev/notes_api/repositories"
+  "github.com/robsonandradev/notes_api/config"
 )
 
 var (
   note            e.Note
   readNoteService *ReadNoteService
+  errorMsgs       *config.ErrorMessages
 )
 
 func TestMain(m *testing.M) {
@@ -20,6 +21,7 @@ func TestMain(m *testing.M) {
   note = e.NewNote("john wick", "my note", "loren ipson and go on", now, now)
   noteRepo := NoteRepositoryMock{}
   readNoteService = NewReadNoteService(&noteRepo)
+  errorMsgs = config.NewErrorMessages()
   os.Exit(m.Run())
 }
 
@@ -82,7 +84,7 @@ func TestSuccessfulGetNote(t *testing.T) {
 
 func TestGetNoteWithEmptyField(t *testing.T) {
   t.Run("when search for note by title and field is empty then return an error", func(t *testing.T) {
-    want := fmt.Errorf("Field title should not be empty!")
+    want := fmt.Errorf(errorMsgs.FIELD_TITLE_SHOULD_NOT_BE_EMPTY)
     _, have := readNoteService.GetNoteByTitle("")
     if have == nil || want.Error() != have.Error() {
       t.Errorf("want %s, but have %s", want, have)
@@ -90,7 +92,7 @@ func TestGetNoteWithEmptyField(t *testing.T) {
   })
 
   t.Run("when search for notes by author and field is empty then return an error", func(t *testing.T) {
-    want := fmt.Errorf("Field author should not be empty!")
+    want := fmt.Errorf(errorMsgs.FIELD_AUTHOR_SHOULD_NOT_BE_EMPTY)
     _, have := readNoteService.GetNotesByAuthor("")
     if have == nil || want.Error() != have.Error() {
       t.Errorf("want %s, but have %s", want, have)
@@ -98,7 +100,7 @@ func TestGetNoteWithEmptyField(t *testing.T) {
   })
 
   t.Run("when search for note by author and title and fields are empty retun error", func(t *testing.T) {
-    want    := fmt.Errorf("Field author and title should not be empty!")
+    want    := fmt.Errorf(errorMsgs.FIELD_AUTHOR_AND_TITLE_SHOULD_NOT_BE_EMPTY)
     _, have := readNoteService.GetNoteByAuthorAndTitle("", "")
     if have == nil || want.Error() != have.Error() {
       t.Errorf("want %s, but have %s", want, have)

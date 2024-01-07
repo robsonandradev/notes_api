@@ -9,10 +9,12 @@ import (
   "github.com/robsonandradev/notes_api/config"
 )
 
-type ReadNoteController struct {}
+type ReadNoteController struct {
+  errorMsgs *config.ErrorMessages
+}
 
 func NewReadNoteController() *ReadNoteController {
-  return &ReadNoteController{}
+  return &ReadNoteController{errorMsgs: config.NewErrorMessages()}
 }
 
 func (c *ReadNoteController) Set(router *mux.Router) {
@@ -31,6 +33,10 @@ func (c *ReadNoteController) exec(w http.ResponseWriter, r *http.Request) {
   title  := r.URL.Query().Get("title")
   notes, err := readNoteSvc.GetNoteByAuthorAndTitle(author, title)
   if err != nil {
+    if err.Error() == c.errorMsgs.FIELD_AUTHOR_AND_TITLE_SHOULD_NOT_BE_EMPTY {
+      returnError(w, err)
+      return
+    }
     internalServerError(w, err)
     return
   }
@@ -42,4 +48,10 @@ func internalServerError(w http.ResponseWriter, err error) {
   log.Println(err)
   w.WriteHeader(http.StatusInternalServerError)
   json.NewEncoder(w).Encode(map[string]string{"error": "internal server error"})
+}
+
+func returnError(w http.ResponseWriter, err error) {
+  log.Println(err)
+  w.WriteHeader(http.StatusNotFound)
+  json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
 }
