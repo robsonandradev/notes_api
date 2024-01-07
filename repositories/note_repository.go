@@ -53,5 +53,13 @@ func (nr *NoteRepository) GetNotesByAuthor(author string) (notes []e.Note, err e
 }
 
 func (nr *NoteRepository) GetNoteByAuthorAndTitle(author, title string) (notes []e.Note, err error) {
-	return
+	db, err := nr.PG.Connect()
+	if err != nil {
+		return
+	}
+	defer nr.PG.Close(db)
+  author = "%"+author+"%"
+  title  = "%"+title+"%"
+	r := db.Where("author like ? and title like ?", author, title).Find(&notes)
+	return notes, r.Error
 }
