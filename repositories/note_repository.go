@@ -8,9 +8,9 @@ import (
 
 type INoteRepository interface {
   CreateNote(author, title, content string) (n e.Note, err error)
-  GetNoteByTitle(title string) (n []e.Note, err error)
-  GetNotesByAuthor(author string) (n []e.Note, err error)
-  GetNoteByAuthorAndTitle(author, title string) (n []e.Note, err error)
+  GetNoteByTitle(title string) (notes []e.Note, err error)
+  GetNotesByAuthor(author string) (notes []e.Note, err error)
+  GetNoteByAuthorAndTitle(author, title string) (notes []e.Note, err error)
 }
 
 type NoteRepository struct {
@@ -30,17 +30,20 @@ func (nr *NoteRepository) CreateNote(author, title, content string) (n e.Note, e
   return e.Note{}, fmt.Errorf("Something goes wrong!")
 }
 
-func (nr *NoteRepository) GetNoteByTitle(title string) (n []e.Note, err error) { return }
-
-func (nr *NoteRepository) GetNotesByAuthor(author string) (n []e.Note, err error) {
+func (nr *NoteRepository) GetNoteByTitle(title string) (notes []e.Note, err error) {
   db, err := nr.PG.Connect()
-  if err != nil {
-    return []e.Note{}, err
-  }
+  if err != nil { return }
   defer nr.PG.Close(db)
-  notes := []e.Note{}
-  r := db.Where("author = ?", author).Find(&notes)
+  r := db.Where("title like ?", "%"+title+"%").Find(&notes)
   return notes, r.Error
 }
 
-func (nr *NoteRepository) GetNoteByAuthorAndTitle(author, title string) (n []e.Note, err error) { return }
+func (nr *NoteRepository) GetNotesByAuthor(author string) (notes []e.Note, err error) {
+  db, err := nr.PG.Connect()
+  if err != nil { return }
+  defer nr.PG.Close(db)
+  r := db.Where("author like ?", "%"+author+"%").Find(&notes)
+  return notes, r.Error
+}
+
+func (nr *NoteRepository) GetNoteByAuthorAndTitle(author, title string) (notes []e.Note, err error) { return }
