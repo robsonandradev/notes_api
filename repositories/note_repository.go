@@ -23,7 +23,8 @@ func NewNoteRepository(connector string) (*NoteRepository, error) {
     ur := &NoteRepository{ PG: &PostgresCon{} }
     return ur, nil
   }
-  return &NoteRepository{}, fmt.Errorf("Unknow database connector")
+  errorMsgs := config.NewErrorMessages()
+  return &NoteRepository{}, fmt.Errorf(errorMsgs.UNKNOW_DATABASE_CONNECTOR)
 }
 
 func (nr *NoteRepository) CreateNote(author, title, content string) (n e.Note, err error) {
