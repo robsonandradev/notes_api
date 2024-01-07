@@ -145,25 +145,25 @@ func TestGetNoteWhichDoesntExist(t *testing.T) {
 type NoteRepositoryMock struct {}
 
 func (nr *NoteRepositoryMock) CreateNote(author, title, content string) (n e.Note, err error) {return}
-func (NoteRepositoryMock) GetNoteByTitle(title string) (n []e.Note, err error) {
+func (NoteRepositoryMock) GetNoteByTitle(title string) (notes []e.Note, err error) {
   if title != "my note" {
     err = fmt.Errorf("Note not found!")
     return
   }
-  n = []e.Note{note}
+  notes = append(notes, note)
   return
 }
-func (NoteRepositoryMock) GetNotesByAuthor(author string) (n []e.Note, err error) {
+func (NoteRepositoryMock) GetNotesByAuthor(author string) (notes []e.Note, err error) {
   if author != "john wick" {
     err = fmt.Errorf("Note not found!")
     return
   }
-  n = []e.Note{note}
+  notes = append(notes, note)
   return
 }
-func (NoteRepositoryMock) GetNoteByAuthorAndTitle(author, title string) (n []e.Note, err error) {
+func (NoteRepositoryMock) GetNoteByAuthorAndTitle(author, title string) (notes []e.Note, err error) {
   if author == "john wick" && title == "my note" {
-    n = []e.Note{note}
+    notes = append(notes, note)
     return
   }
   return []e.Note{}, fmt.Errorf("Note not found!")
