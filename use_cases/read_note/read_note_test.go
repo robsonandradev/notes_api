@@ -111,34 +111,34 @@ func TestGetNoteWithEmptyField(t *testing.T) {
 
 func TestGetNoteWhichDoesntExist(t *testing.T) {
 	t.Run("when search for note by title that doesnt exist then return an error", func(t *testing.T) {
-		want := fmt.Errorf("Note not found!")
-		_, have := readNoteService.GetNoteByTitle("note x")
-		if have == nil || have.Error() != want.Error() {
-			t.Errorf("want %s, but have %s", want, have)
+    want := 0
+		have, _ := readNoteService.GetNoteByTitle("note x")
+    if len(have) != want {
+			t.Errorf("want %d, but have %s", want, have)
 		}
 	})
 
 	t.Run("when search for notes by author that doesnt exist then return an error", func(t *testing.T) {
-		want := fmt.Errorf("Note not found!")
-		_, have := readNoteService.GetNotesByAuthor("Elon Musk")
-		if have == nil || have.Error() != want.Error() {
-			t.Errorf("want %s, but have %s", want, have)
+    want := 0
+		have, _ := readNoteService.GetNotesByAuthor("Elon Musk")
+    if len(have) != want {
+			t.Errorf("want %d, but have %s", want, have)
 		}
 	})
 
 	t.Run("when search for note by AUTHOR and title that doesnt exist then return an error", func(t *testing.T) {
-		want := fmt.Errorf("Note not found!")
-		_, have := readNoteService.GetNoteByAuthorAndTitle("Elon Musk", "my note")
-		if have == nil || have.Error() != want.Error() {
-			t.Errorf("want %s, but have %s", want, have)
+    want := 0
+		have, _ := readNoteService.GetNoteByAuthorAndTitle("Elon Musk", "my note")
+    if len(have) != want {
+			t.Errorf("want %d, but have %s", want, have)
 		}
 	})
 
 	t.Run("when search for note by author and TITLE that doesnt exist then return an error", func(t *testing.T) {
-		want := fmt.Errorf("Note not found!")
-		_, have := readNoteService.GetNoteByAuthorAndTitle("john wick", "xnote")
-		if have == nil || have.Error() != want.Error() {
-			t.Errorf("want %s, but have %s", want, have)
+    want := 0
+		have, _ := readNoteService.GetNoteByAuthorAndTitle("john wick", "xnote")
+    if len(have) != want {
+			t.Errorf("want %d, but have %s", want, have)
 		}
 	})
 }
@@ -150,7 +150,6 @@ type NoteRepositoryMock struct{}
 func (nr *NoteRepositoryMock) CreateNote(author, title, content string) (n e.Note, err error) { return }
 func (NoteRepositoryMock) GetNoteByTitle(title string) (notes []e.Note, err error) {
 	if title != "my note" {
-		err = fmt.Errorf("Note not found!")
 		return
 	}
 	notes = append(notes, note)
@@ -158,7 +157,6 @@ func (NoteRepositoryMock) GetNoteByTitle(title string) (notes []e.Note, err erro
 }
 func (NoteRepositoryMock) GetNotesByAuthor(author string) (notes []e.Note, err error) {
 	if author != "john wick" {
-		err = fmt.Errorf("Note not found!")
 		return
 	}
 	notes = append(notes, note)
@@ -169,5 +167,5 @@ func (NoteRepositoryMock) GetNoteByAuthorAndTitle(author, title string) (notes [
 		notes = append(notes, note)
 		return
 	}
-	return []e.Note{}, fmt.Errorf("Note not found!")
+  return
 }
