@@ -9,6 +9,7 @@ import (
 type IUserRepository interface {
   GetUserByUsernameAndPassword(username, password string) (e.User, error)
   GetUserByUsername(username string) (e.User, error)
+  CreateUser(username, password, email string) (e.User, error)
 }
 
 type UserRepository struct {
@@ -44,4 +45,8 @@ func (ur *UserRepository) GetUserByUsernameAndPassword(username, password string
   user := e.User{}
   r := db.First(&user, "username = ? and password = ?", username, password)
   return user, r.Error
+}
+
+func (ur *UserRepository) CreateUser(username, password, email string) (u e.User, e error) {
+  return
 }
