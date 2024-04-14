@@ -68,6 +68,10 @@ func (ur *UserRepositoryMock) GetUserByUsernameAndPassword(username, password st
   return e.User{}, fmt.Errorf("wrong password!")
 }
 
+func (ur *UserRepositoryMock) CreateUser(username, password, email string) (u e.User, e error) {
+  return
+}
+
 func mockUsers() []e.User {
   u1 := e.NewUser("1", "john", "john", "john@gmail.com")
   u2 := e.NewUser("2", "jone", "jone", "jone@gmail.com")
