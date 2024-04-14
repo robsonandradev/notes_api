@@ -21,13 +21,17 @@ type responseUser struct {
 type requestBody struct {
   Username string `json:"username"`
   Password string `json:"password"`
-  Email    string `json:"emal"`
+  Email    string `json:"email"`
 }
 
 type CreateUserController struct {}
 
+func NewCreateUserServiceController() *CreateUserController {
+  return &CreateUserController{}
+}
+
 func (c *CreateUserController) Set(router *mux.Router) {
-  router.HandleFunc("/login", c.run).Methods("POST")
+  router.HandleFunc("/user", c.run).Methods("PUT")
 }
 
 func (c *CreateUserController) run(w http.ResponseWriter, r *http.Request) {
@@ -38,7 +42,7 @@ func (c *CreateUserController) run(w http.ResponseWriter, r *http.Request) {
   u := getRequestBody(r.Body)
   user, err := CreateUserSvc.Run(u.Username, u.Password, u.Email)
   if err != nil {
-    w.WriteHeader(http.StatusUnauthorized)
+    w.WriteHeader(http.StatusBadRequest)
     setErrors(w, err.Error())
     return
   }

@@ -16,7 +16,7 @@ func NewCreateUserService(ur repos.IUserRepository) CreateUserSvc {
 }
 
 func (cr CreateUserSvc) Run(username, password, email string) (user e.User, err error) {
-  log.Println("Register new user:", username)
+  log.Println("Registering new user:", username)
   if username == "" {
     return e.User{}, fmt.Errorf("Username is required!")
   }
