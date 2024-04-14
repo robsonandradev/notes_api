@@ -2,6 +2,7 @@ package repositories
 
 import (
   "fmt"
+  "github.com/google/uuid"
   e "github.com/robsonandradev/notes_api/entities"
   "github.com/robsonandradev/notes_api/config"
 )
@@ -47,6 +48,16 @@ func (ur *UserRepository) GetUserByUsernameAndPassword(username, password string
   return user, r.Error
 }
 
-func (ur *UserRepository) CreateUser(username, password, email string) (u e.User, e error) {
-  return
+func (ur *UserRepository) CreateUser(username, password, email string) (u e.User, err error) {
+  db, err := ur.PG.Connect()
+  if err != nil {
+    return 
+  }
+  defer ur.PG.Close(db)
+  u.Id       = uuid.NewString()
+  u.Email    = email
+  u.Username = username
+  u.Password = password
+  r := db.Create(&u)
+  return u, r.Error
 }

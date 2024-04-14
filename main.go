@@ -6,6 +6,7 @@ import (
 	hc "github.com/robsonandradev/notes_api/use_cases/health"
 	"github.com/robsonandradev/notes_api/use_cases/login"
 	"github.com/robsonandradev/notes_api/use_cases/read_note"
+	"github.com/robsonandradev/notes_api/use_cases/create_user"
 	"log"
 	"net/http"
 )
@@ -28,6 +29,7 @@ func setControllers(r *mux.Router, l *login.LoginController) {
 	hc.Set(r)
 	l.Set(r)
   readnote.NewReadNoteController().Set(r)
+  createuser.NewCreateUserServiceController().Set(r)
 }
 
 func logMiddleware(next http.Handler) http.Handler {
