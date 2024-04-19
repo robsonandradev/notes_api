@@ -13,3 +13,6 @@ test-cover:
 test-report:
 	go test -coverprofile=report.out ./use_cases/**
 	go tool cover -html report.out
+
+db-migrations:
+	go run migrations/main.go
