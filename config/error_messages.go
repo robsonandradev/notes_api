@@ -5,6 +5,9 @@ type ErrorMessages struct {
   FIELD_TITLE_SHOULD_NOT_BE_EMPTY            string
   FIELD_AUTHOR_AND_TITLE_SHOULD_NOT_BE_EMPTY string
   FIELD_AUTHOR_SHOULD_NOT_BE_EMPTY           string
+  USER_REQUIRED                              string
+  USER_PASSWORD_REQUIRED                     string
+  USER_EMAIL_REQUIRED                        string
 }
 
 func NewErrorMessages() *ErrorMessages {
@@ -13,5 +16,8 @@ func NewErrorMessages() *ErrorMessages {
     FIELD_TITLE_SHOULD_NOT_BE_EMPTY: "Field title should not be empty!",
     FIELD_AUTHOR_AND_TITLE_SHOULD_NOT_BE_EMPTY: "Field author and title should not be empty!",
     FIELD_AUTHOR_SHOULD_NOT_BE_EMPTY: "Field author should not be empty!",
+    USER_REQUIRED: "Username is required!",
+    USER_PASSWORD_REQUIRED: "Password is required!",
+    USER_EMAIL_REQUIRED: "Email is required!",
   }
 }

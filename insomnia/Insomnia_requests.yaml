@@ -1,90 +1,10 @@
 _type: export
 __export_format: 4
-__export_date: 2024-04-14T01:30:16.919Z
-__export_source: insomnia.desktop.app:v8.6.1
+__export_date: 2024-06-09T14:48:28.700Z
+__export_source: insomnia.desktop.app:v9.2.0
 resources:
-  - _id: req_3de55f99fbe64df28ce8026785497a79
-    parentId: wrk_scratchpad
-    modified: 1713056972082
-    created: 1713056733543
-    url: "{{ _.base_url }}/user"
-    name: putUser
-    description: ""
-    method: PUT
-    body:
-      mimeType: application/json
-      text: |-
-        {
-        	"username": "joe@gmail.com",
-        	"email": "joe@gmail.com",
-        	"password": "joe@gmail.com"
-        }
-    parameters: []
-    headers:
-      - name: Content-Type
-        value: application/json
-      - name: User-Agent
-        value: insomnia/8.6.1
-    authentication:
-      type: bearer
-      token: "{{ _.Authorization }}"
-    metaSortKey: -1713056733543
-    isPrivate: false
-    pathParameters: []
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: wrk_scratchpad
-    parentId: null
-    modified: 1708697726559
-    created: 1708697726559
-    name: Scratch Pad
-    description: ""
-    scope: collection
-    _type: workspace
-  - _id: req_b828ef03569840b0ae034b88f4899cec
-    parentId: wrk_scratchpad
-    modified: 1711457408255
-    created: 1711457312930
-    url: https://apis-dev.amicci-digital.com.br/visualizador/api/project-skus/1007
-    name: New Request
-    description: ""
-    method: GET
-    body: {}
-    parameters: []
-    headers:
-      - name: User-Agent
-        value: insomnia/8.6.1
-        id: pair_c3a0d76da5784516ab5b58039d116abb
-      - id: pair_d75145f01ed84de8982b4012b335a9a4
-        name: Access_token
-        value: eyJraWQiOiJ0XC9WbVZqWEZCdkZGZVg0bk9raEhzVzJQUElVczgrNGpcLytvT2VNc1dtTG89IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJmY2RhMmY2My0wMGE5LTRiOGUtODRkZS0wYWVhM2Y4MmJlZjgiLCJjb2duaXRvOmdyb3VwcyI6WyJleHRlcm5hbF9zZWxsZXJzIl0sImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX2ZHUWNEUHFGNSIsImNsaWVudF9pZCI6IjRsczhkNjE5dWRvNXRuYjNxZWRxbmtkZzNtIiwiZXZlbnRfaWQiOiI5MTEyZTE2Zi00NmRjLTRlZGMtYTIzYS02NjEzZmQ2MGM1NTQiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIiwiYXV0aF90aW1lIjoxNzExNDU2MTM1LCJleHAiOjE3MTE0OTkzMzUsImlhdCI6MTcxMTQ1NjEzNSwianRpIjoiYzlkYmM1YjAtZmZjYi00ZWMxLTk4NGItNGM4NjFjYzJiODIwIiwidXNlcm5hbWUiOiJyb2Jzb24uYW5kcmFkZV9hdF9hbWljY2kuY29tLmJyIn0.bQ-2E5FRQ2O9jLbRvG3_5w1FrKodPVM7CW6VViv61j75t9MP-Il4vUGEUuzFGStT37tNtZAPFk5o5VflQnpRCLRnW5hVf05JIiGmLPe9-cKb63F4CjioHvtZR6uJ1z6XFZagdsvZEg9boRxzJ00eSHg0GDOwh_QY7iMV6ThVc9TMgVRaqsYB0BRHCubjw0UWWiJxoEE1X8N_vFyS56QKaG0AFO1_bA_480IwNM0QnXVrdYO60HmYtpFizYB_2JbPPQsLrV8IzsyNZIUt5TMSMCam4Zy6BwXjL5vmixctRUT3i-pND64M7ahcCyHgGkz8GkbKSDnt0USqFlpAKg-Kqw
-        description: ""
-      - id: pair_7bdf6c434b2c4887a3f65397e3fb4971
-        name: Authorization
-        value: x
-        description: ""
-      - id: pair_b8f37d72f6ee4a01bf838cde795cc9c7
-        name: Id_token
-        value: eyJraWQiOiI1NWp0ZE13QjlKRlR2R3Y4QWQzbEJ4RU10blczTGVMSlg2aHo3VWs3NG5zPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJmY2RhMmY2My0wMGE5LTRiOGUtODRkZS0wYWVhM2Y4MmJlZjgiLCJhdWQiOiI0bHM4ZDYxOXVkbzV0bmIzcWVkcW5rZGczbSIsImNvZ25pdG86Z3JvdXBzIjpbImV4dGVybmFsX3NlbGxlcnMiXSwiZXZlbnRfaWQiOiI5MTEyZTE2Zi00NmRjLTRlZGMtYTIzYS02NjEzZmQ2MGM1NTQiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTcxMTQ1NjEzNSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfZkdRY0RQcUY1IiwiY29nbml0bzp1c2VybmFtZSI6InJvYnNvbi5hbmRyYWRlX2F0X2FtaWNjaS5jb20uYnIiLCJleHAiOjE3MTE0OTkzMzUsImlhdCI6MTcxMTQ1NjEzNSwiZW1haWwiOiJyb2Jzb24uYW5kcmFkZUBhbWljY2kuY29tLmJyIn0.rBPQertHuQXtp-CWN87yQn6IDo1OVoPV2kOFjDxX4ADf8A-12jfXOj3OVKE0FO426Rx6V4Fy7au3xg5MtWkLBrKD9-fkHJjJicWQLhgpm_wnDx7hZzt7KqBGezjzFbdMXK3-5UqER2_CtdmaR32paFJ06qaQYQNPXm6ETUxXL_10EYA0AxP9t__btTcvrg9ardti0m7aEzSz_qf_t7X62-UcOjSI3ivlCYbO8kiexnAkGozIQ7smL5bdgzlY9blb9Gd5pCsNS2ixEs_nVx0s3CzEgB4UeShpyfZoSzSytryzg6qwFUgsR0Z4d1NqPqxYrimlQocXsCMmwgZA3UnLKg
-        description: ""
-    authentication: {}
-    metaSortKey: -1711457312930
-    isPrivate: false
-    pathParameters: []
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: req_a57f265a8d414803bfe75c3a69bb394b
-    parentId: wrk_scratchpad
+  - _id: req_a3ed547eae994171b70e8e0b92fa6042
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
     modified: 1713054996908
     created: 1696089257564
     url: "{{ _.base_url }}/login"
@@ -98,6 +18,7 @@ resources:
         	"username": "john.wick@gmail.com",
         	"password": "john.wick"
         }
+    preRequestScript: ""
     parameters: []
     headers:
       - name: Content-Type
@@ -115,8 +36,47 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_8106d702e02b448cb01ed6c4d2e91160
-    parentId: wrk_scratchpad
+  - _id: wrk_37686dffbc5f43c1a109c0f20a504806
+    parentId: null
+    modified: 1717944104399
+    created: 1696089052998
+    name: note_api
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_0573be20e4a64c7886cef60a5d795cd2
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
+    modified: 1701389722661
+    created: 1700258302452
+    url: "{{ _.base_url }}/health"
+    name: healthCheck
+    description: ""
+    method: GET
+    body:
+      mimeType: application/json
+      text: "{}"
+    preRequestScript: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.1.0
+    authentication:
+      type: bearer
+      token: "{{ _.Authorization }}"
+    metaSortKey: -1696089257515
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e6e0e49d97b64b239f698cdd275d7dda
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
     modified: 1713056663690
     created: 1704056654124
     url: "{{ _.base_url }}/notes"
@@ -126,6 +86,7 @@ resources:
     body:
       mimeType: application/json
       text: ""
+    preRequestScript: ""
     parameters:
       - id: pair_173eeb6e820a4931b2f79d62a3ad19df
         name: author
@@ -153,27 +114,33 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_07af8c793e094dacb8523bb69c6089b8
-    parentId: wrk_scratchpad
-    modified: 1701389722661
-    created: 1700258302452
-    url: "{{ _.base_url }}/health"
-    name: healthCheck
+  - _id: req_8bab391c39224c7ab931d543a0c8b60a
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
+    modified: 1717944334675
+    created: 1713056733543
+    url: "{{ _.base_url }}/user"
+    name: putUser
     description: ""
-    method: GET
+    method: PUT
     body:
       mimeType: application/json
-      text: "{}"
+      text: |-
+        {
+        	"username": "joe@gmail.com",
+        	"email": "joe@gmail.com",
+        	"password": "joe@gmail.com"
+        }
+    preRequestScript: ""
     parameters: []
     headers:
       - name: Content-Type
         value: application/json
       - name: User-Agent
-        value: insomnia/8.1.0
+        value: insomnia/8.6.1
     authentication:
       type: bearer
       token: "{{ _.Authorization }}"
-    metaSortKey: -1696089257515
+    metaSortKey: -1713056733543
     isPrivate: false
     pathParameters: []
     settingStoreCookies: true
@@ -183,32 +150,32 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: env_99d30891da4bdcebc63947a8fc17f076de878684
-    parentId: wrk_scratchpad
-    modified: 1711457304526
-    created: 1711457304526
+  - _id: env_5275da00c051daa2ba126347a544feebfeca83de
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
+    modified: 1717944104396
+    created: 1696089053009
     name: Base Environment
     data: {}
     dataPropertyOrder: null
     color: null
     isPrivate: false
-    metaSortKey: 1711457304526
+    metaSortKey: 1696089053009
     _type: environment
-  - _id: jar_99d30891da4bdcebc63947a8fc17f076de878684
-    parentId: wrk_scratchpad
-    modified: 1711457304532
-    created: 1711457304532
+  - _id: jar_5275da00c051daa2ba126347a544feebfeca83de
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
+    modified: 1717944104743
+    created: 1717944104743
     name: Default Jar
     cookies: []
     _type: cookie_jar
-  - _id: env_f2effe7f8a7d4571831a87d0b446bf36
-    parentId: env_99d30891da4bdcebc63947a8fc17f076de878684
-    modified: 1713056676185
+  - _id: env_7a6c47de80374ad59e212adaffda1937
+    parentId: env_5275da00c051daa2ba126347a544feebfeca83de
+    modified: 1717944359257
     created: 1696089085526
     name: dev
     data:
       base_url: localhost:3000
-      Authorization: "{% response 'body', 'req_a57f265a8d414803bfe75c3a69bb394b',
+      Authorization: "{% response 'body', 'req_a3ed547eae994171b70e8e0b92fa6042',
         'b64::JC50b2tlbg==::46b', 'never', 60 %}"
     dataPropertyOrder:
       "&":

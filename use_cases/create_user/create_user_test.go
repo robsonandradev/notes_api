@@ -3,13 +3,18 @@ package createuser
 import (
   "os"
   "testing"
+	"github.com/robsonandradev/notes_api/config"
   e "github.com/robsonandradev/notes_api/entities"
 )
 
-var createUserSvc CreateUserSvc 
+var (
+  createUserSvc CreateUserSvc
+  errorMsgs config.ErrorMessages
+)
 
 func TestMain(m *testing.M) {
   mock := UserRepositoryMock{}
+  errorMsgs = *config.NewErrorMessages()
   createUserSvc = NewCreateUserService(&mock)
   os.Exit(m.Run())
 }
@@ -29,21 +34,21 @@ func TestSuccessfulUser(t *testing.T) {
 
 func TestLoginWrongUsername(t *testing.T) {
   t.Run("when add new user without username", func (t *testing.T) {
-    want := "Username is required!"
+    want := errorMsgs.USER_REQUIRED
     _, err := createUserSvc.Run("", "john!123", "john.wick@gmail.com")
     if err == nil || err.Error() != want{
       t.Errorf("expect %s error and got %s error", want, err)
     }
   })
   t.Run("when add new user without password", func (t *testing.T) {
-    want := "Password is required!"
+    want := errorMsgs.USER_PASSWORD_REQUIRED
     _, err := createUserSvc.Run("john.wick", "", "john.wick@gmail.com")
     if err == nil || err.Error() != want{
       t.Errorf("expect %s error and got %s error", want, err)
     }
   })
   t.Run("when add new user without email", func (t *testing.T) {
-    want := "Email is required!"
+    want := errorMsgs.USER_EMAIL_REQUIRED
     _, err := createUserSvc.Run("john.wick", "john!123", "")
     if err == nil || err.Error() != want{
       t.Errorf("expect %s error and got %s error", want, err)
