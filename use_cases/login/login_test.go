@@ -58,6 +58,12 @@ func (ur *UserRepositoryMock) GetUserByUsername(username string) (e.User, error)
   return e.User{}, fmt.Errorf("user not found!")
 }
 
+func (ur *UserRepositoryMock) GetUserByEmail(email string) (u e.User, err error) { return }
+
+func (ur *UserRepositoryMock) GetUserById(id string) (u e.User, err error) { return }
+
+func (ur *UserRepositoryMock) GetAll() (users []e.User, err error) {return}
+
 func (ur *UserRepositoryMock) GetUserByUsernameAndPassword(username, password string) (e.User, error) {
   users := mockUsers()
   for _, user := range users {

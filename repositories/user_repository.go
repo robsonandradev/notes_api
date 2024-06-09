@@ -10,6 +10,9 @@ import (
 type IUserRepository interface {
   GetUserByUsernameAndPassword(username, password string) (e.User, error)
   GetUserByUsername(username string) (e.User, error)
+  GetUserByEmail(email string) (e.User, error)
+  GetUserById(id string) (e.User, error)
+  GetAll() ([]e.User, error)
   CreateUser(username, password, email string) (e.User, error)
 }
 
@@ -47,6 +50,16 @@ func (ur *UserRepository) GetUserByUsernameAndPassword(username, password string
   r := db.First(&user, "username = ? and password = ?", username, password)
   return user, r.Error
 }
+
+func (ur *UserRepository) GetUserByEmail(email string) (u e.User, err error) {
+  return
+}
+
+func (ur *UserRepository) GetUserById(id string) (u e.User, err error) {
+  return
+}
+
+func (ur *UserRepository) GetAll() (users []e.User, err error) {return}
 
 func (ur *UserRepository) CreateUser(username, password, email string) (u e.User, err error) {
   db, err := ur.PG.Connect()
