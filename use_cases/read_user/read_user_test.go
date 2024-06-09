@@ -62,6 +62,35 @@ func TestReadUserSuccessfuly(t *testing.T) {
   })
 }
 
+func TestReadUserNotFound(t *testing.T) {
+  t.Run("when get user by id and user doesnt exists", func(t *testing.T) {
+    userId := "55"
+    want := append([]e.User{}, e.User{})
+    users, err := readUserSvc.Run("", "", userId)
+    if err != nil { panic(err) }
+    if len(want) != len(users) {
+      t.Errorf("expect %s and got %s", want, users)
+    }
+  })
+  t.Run("when get user by username and user doesnt exists", func(t *testing.T) {
+    username := "user@not.found"
+    want := append([]e.User{}, e.User{})
+    users, err := readUserSvc.Run(username, "", "")
+    if err != nil { panic(err) }
+    if len(want) != len(users) {
+      t.Errorf("expect %s and got %s", want, users)
+    }
+  })
+  t.Run("when get user by email and user doesnt exists", func(t *testing.T) {
+    email := "user@not.found"
+    want := append([]e.User{}, e.User{})
+    users, err := readUserSvc.Run("", email, "")
+    if err != nil { panic(err) }
+    if len(want) != len(users) {
+      t.Errorf("expect %s and got %s", want, users)
+    }
+  })
+}
 // starting mocks
 type UserRepositoryMock struct {}
 
