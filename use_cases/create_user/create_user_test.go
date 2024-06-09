@@ -59,13 +59,15 @@ func TestLoginWrongUsername(t *testing.T) {
 // starting mocks
 type UserRepositoryMock struct {}
 
-func (ur *UserRepositoryMock) GetUserByUsername(username string) (u e.User, e error) {
-  return
-}
+func (ur *UserRepositoryMock) GetUserByUsername(username string) (u e.User, e error) { return }
 
-func (ur *UserRepositoryMock) GetUserByUsernameAndPassword(username, password string) (u e.User, e error) {
-  return 
-}
+func (ur *UserRepositoryMock) GetUserByEmail(email string) (u e.User, err error) { return }
+
+func (ur *UserRepositoryMock) GetUserById(id string) (u e.User, err error) { return }
+
+func (ur *UserRepositoryMock) GetAll() (users []e.User, err error) {return}
+
+func (ur *UserRepositoryMock) GetUserByUsernameAndPassword(username, password string) (u e.User, e error) { return }
 
 func (ur *UserRepositoryMock) CreateUser(username, password, email string) (u e.User, e error) {
   return mockUsers()[0], nil
