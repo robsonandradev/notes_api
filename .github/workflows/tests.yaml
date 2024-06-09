@@ -1,9 +1,7 @@
 ---
-name: unittests
+name: Unit Tests
 
 on:
-  push:
-    branches: ["feat/unittest-action"]
   pull_request:
     branches: ["master"]
 
@@ -11,10 +9,10 @@ jobs:
   unittest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: setup go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: '1.21'
 
