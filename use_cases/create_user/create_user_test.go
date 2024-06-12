@@ -73,6 +73,8 @@ func (ur *UserRepositoryMock) CreateUser(username, password, email string) (u e.
   return mockUsers()[0], nil
 }
 
+func (ur * UserRepositoryMock) UpdateUser(id, password, email string) (u e.User, err error) { return }
+
 func mockUsers() []e.User {
   u1 := e.NewUser("1", "john", "john", "john@gmail.com")
   u2 := e.NewUser("2", "jone", "jone", "jone@gmail.com")

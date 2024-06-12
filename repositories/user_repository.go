@@ -14,6 +14,7 @@ type IUserRepository interface {
   GetUserById(id string) (e.User, error)
   GetAll() ([]e.User, error)
   CreateUser(username, password, email string) (e.User, error)
+  UpdateUser(id, password, email string) (e.User, error)
 }
 
 type UserRepository struct {
@@ -74,3 +75,5 @@ func (ur *UserRepository) CreateUser(username, password, email string) (u e.User
   r := db.Create(&u)
   return u, r.Error
 }
+
+func (ur * UserRepository) UpdateUser(id, password, email string) (u e.User, err error) { return }
