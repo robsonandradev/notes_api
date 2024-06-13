@@ -8,6 +8,8 @@ type ErrorMessages struct {
   USER_REQUIRED                              string
   USER_PASSWORD_REQUIRED                     string
   USER_EMAIL_REQUIRED                        string
+  USER_NOT_FOUND                             string
+  USER_EMAIL_OR_PASSWORD_REQUIRED            string
 }
 
 func NewErrorMessages() *ErrorMessages {
@@ -19,5 +21,7 @@ func NewErrorMessages() *ErrorMessages {
     USER_REQUIRED: "Username is required!",
     USER_PASSWORD_REQUIRED: "Password is required!",
     USER_EMAIL_REQUIRED: "Email is required!",
+    USER_NOT_FOUND: "User not found!",
+    USER_EMAIL_OR_PASSWORD_REQUIRED: "Email or Password is required!",
   }
 }

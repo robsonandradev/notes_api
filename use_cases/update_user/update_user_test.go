@@ -1,6 +1,7 @@
 package updateuser
 
 import (
+  "fmt"
   "os"
   "testing"
 	"github.com/robsonandradev/notes_api/config"
@@ -72,6 +73,25 @@ func TestUpdateUserSuccessfuly(t *testing.T) {
     }
     if user.Password != want.Password {
       t.Errorf("expected %s and got %s", want.Password, user.Password)
+    }
+  })
+}
+
+func TestUpdateUserFail(t *testing.T) {
+  t.Run("when update user that doesnt exists", func (t *testing.T) {
+    randomId := "123654"
+    want := fmt.Errorf(errorMsgs.USER_NOT_FOUND)
+    _, err := updateuserSvc.Run(randomId, "any", "any")
+    if err.Error() != want.Error() {
+      t.Errorf("expected %s exception and got %s", want, err)
+    }
+  })
+  t.Run("when update user without send email and password", func (t *testing.T) {
+    mockedUser := mockUsers()[0]
+    want := fmt.Errorf(errorMsgs.USER_EMAIL_OR_PASSWORD_REQUIRED)
+    _, err := updateuserSvc.Run(mockedUser.Id, "", "")
+    if err == nil || err.Error() != want.Error() {
+      t.Errorf("expected %s exception and got %s", want, err)
     }
   })
 }
