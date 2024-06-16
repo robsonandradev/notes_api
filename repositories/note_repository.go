@@ -15,13 +15,13 @@ type INoteRepository interface {
 }
 
 type NoteRepository struct {
-	PG DBConnection
+	db DBConnection
 }
 
 func NewNoteRepository(connector string) (*NoteRepository, error) {
 	consts := config.NewConstants()
 	if connector == consts.POSTGRES {
-		ur := &NoteRepository{PG: &PostgresCon{}}
+		ur := &NoteRepository{db: &PostgresCon{}}
 		return ur, nil
 	}
 	errorMsgs := config.NewErrorMessages()
@@ -33,31 +33,31 @@ func (nr *NoteRepository) CreateNote(author, title, content string) (n e.Note, e
 }
 
 func (nr *NoteRepository) GetNoteByTitle(title string) (notes []e.Note, err error) {
-	db, err := nr.PG.Connect()
+	db, err := nr.db.Connect()
 	if err != nil {
 		return
 	}
-	defer nr.PG.Close(db)
+	defer nr.db.Close(db)
 	r := db.Where("title like ?", "%"+title+"%").Find(&notes)
 	return notes, r.Error
 }
 
 func (nr *NoteRepository) GetNotesByAuthor(author string) (notes []e.Note, err error) {
-	db, err := nr.PG.Connect()
+	db, err := nr.db.Connect()
 	if err != nil {
 		return
 	}
-	defer nr.PG.Close(db)
+	defer nr.db.Close(db)
 	r := db.Where("author like ?", "%"+author+"%").Find(&notes)
 	return notes, r.Error
 }
 
 func (nr *NoteRepository) GetNoteByAuthorAndTitle(author, title string) (notes []e.Note, err error) {
-	db, err := nr.PG.Connect()
+	db, err := nr.db.Connect()
 	if err != nil {
 		return
 	}
-	defer nr.PG.Close(db)
+	defer nr.db.Close(db)
   author = "%"+author+"%"
   title  = "%"+title+"%"
 	r := db.Where("author like ? and title like ?", author, title).Find(&notes)
