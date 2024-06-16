@@ -18,56 +18,76 @@ type IUserRepository interface {
 }
 
 type UserRepository struct {
-  PG DBConnection
+  db DBConnection
 }
 
 func NewUserRepository(connector string) (*UserRepository, error) {
   consts := config.NewConstants()
   if connector == consts.POSTGRES {
-    ur := &UserRepository{ PG: &PostgresCon{} }
+    ur := &UserRepository{ db: &PostgresCon{} }
     return ur, nil
   }
   return &UserRepository{}, fmt.Errorf("Unknow database connector")
 }
 
 func (ur *UserRepository) GetUserByUsername(username string) (e.User, error) {
-  db, err := ur.PG.Connect()
+  db, err := ur.db.Connect()
   if err != nil {
     return e.User{}, err
   }
-  defer ur.PG.Close(db)
+  defer ur.db.Close(db)
   user := e.User{}
   r := db.First(&user, "username = ?", username)
   return user, r.Error
 }
 
 func (ur *UserRepository) GetUserByUsernameAndPassword(username, password string) (e.User, error) {
-  db, err := ur.PG.Connect()
+  db, err := ur.db.Connect()
   if err != nil {
     return e.User{}, err
   }
-  defer ur.PG.Close(db)
+  defer ur.db.Close(db)
   user := e.User{}
   r := db.First(&user, "username = ? and password = ?", username, password)
   return user, r.Error
 }
 
 func (ur *UserRepository) GetUserByEmail(email string) (u e.User, err error) {
-  return
+	db, err := ur.db.Connect()
+	if err != nil {
+		return
+	}
+	defer ur.db.Close(db)
+	r := db.Where("email = ?", email).Find(&u)
+	return u, r.Error
 }
 
 func (ur *UserRepository) GetUserById(id string) (u e.User, err error) {
-  return
+	db, err := ur.db.Connect()
+	if err != nil {
+		return
+	}
+	defer ur.db.Close(db)
+	r := db.Where("id = ?", id).Find(&u)
+	return u, r.Error
 }
 
-func (ur *UserRepository) GetAll() (users []e.User, err error) {return}
+func (ur *UserRepository) GetAll() (users []e.User, err error) {
+	db, err := ur.db.Connect()
+	if err != nil {
+		return
+	}
+	defer ur.db.Close(db)
+	r := db.Find(&users)
+	return users, r.Error
+}
 
 func (ur *UserRepository) CreateUser(username, password, email string) (u e.User, err error) {
-  db, err := ur.PG.Connect()
+  db, err := ur.db.Connect()
   if err != nil {
     return 
   }
-  defer ur.PG.Close(db)
+  defer ur.db.Close(db)
   u.Id       = uuid.NewString()
   u.Email    = email
   u.Username = username

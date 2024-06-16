@@ -18,3 +18,18 @@ After that, you can execute the command
 ```shell
 make run-autoreload
 ```
+
+### TODO
+
+Create routes for:
+
+- [ ] create-note
+- [ ] delete-note
+- [x] read-note
+- [ ] update-note
+
+- [x] create-user
+- [ ] delete-user
+- [x] read-user
+- [ ] update-user
+
