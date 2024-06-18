@@ -30,12 +30,12 @@ func (uu UpdateUserSvc) Run(id, password, email string) (u e.User, err error) {
     err = fmt.Errorf(uu.errorMsgs.USER_EMAIL_OR_PASSWORD_REQUIRED)
     return
   }
-  if password == "" {
-    password = userRecovered.Password
+  if password != "" {
+    userRecovered.Password = password
   }
-  if email == "" {
-    email = userRecovered.Email
+  if email != "" {
+    userRecovered.Email = email
   }
-  u, err = uu.userRepository.UpdateUser(id, password, email)
+  u, err = uu.userRepository.UpdateUser(userRecovered)
   return
 }

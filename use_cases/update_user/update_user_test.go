@@ -114,10 +114,10 @@ func (ur *UserRepositoryMock) GetUserById(id string) (u e.User, err error) {
 func (ur *UserRepositoryMock) GetAll() (users []e.User, err error) { return }
 func (ur *UserRepositoryMock) GetUserByUsernameAndPassword(username, password string) (u e.User, e error) { return }
 func (ur *UserRepositoryMock) CreateUser(username, password, email string) (u e.User, e error) { return }
-func (ur * UserRepositoryMock) UpdateUser(id, password, email string) (u e.User, err error) {
+func (ur * UserRepositoryMock) UpdateUser(newUser e.User) (u e.User, err error) {
   u = mockUsers()[0]
-  u.Password = password
-  u.Email = email
+  u.Password = newUser.Password
+  u.Email = newUser.Email
   return
 }
 
