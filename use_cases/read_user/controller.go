@@ -18,7 +18,7 @@ func NewReadUserController() *ReadUserController {
 }
 
 func (c *ReadUserController) Set(router *mux.Router) {
-  router.HandleFunc("/users", c.exec).Methods("GET")
+  router.HandleFunc("/user", c.exec).Methods("GET")
 }
 
 func (c *ReadUserController) exec(w http.ResponseWriter, r *http.Request) {
@@ -32,13 +32,13 @@ func (c *ReadUserController) exec(w http.ResponseWriter, r *http.Request) {
   username := r.URL.Query().Get("username")
   email    := r.URL.Query().Get("email")
   id       := r.URL.Query().Get("id")
-  notes, err := readUserSvc.Run(username, email, id)
+  users, err := readUserSvc.Run(username, email, id)
   if err != nil {
     internalServerError(w, err)
     return
   }
   w.WriteHeader(http.StatusOK)
-  json.NewEncoder(w).Encode(notes)
+  json.NewEncoder(w).Encode(users)
 }
 
 func internalServerError(w http.ResponseWriter, err error) {
