@@ -1,52 +1,11 @@
 _type: export
 __export_format: 4
-__export_date: 2024-06-09T14:48:28.700Z
+__export_date: 2024-06-18T00:49:50.068Z
 __export_source: insomnia.desktop.app:v9.2.0
 resources:
-  - _id: req_a3ed547eae994171b70e8e0b92fa6042
-    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
-    modified: 1713054996908
-    created: 1696089257564
-    url: "{{ _.base_url }}/login"
-    name: login
-    description: ""
-    method: POST
-    body:
-      mimeType: application/json
-      text: |-
-        {
-        	"username": "john.wick@gmail.com",
-        	"password": "john.wick"
-        }
-    preRequestScript: ""
-    parameters: []
-    headers:
-      - name: Content-Type
-        value: application/json
-      - name: User-Agent
-        value: insomnia/8.1.0
-    authentication: {}
-    metaSortKey: -1696089257565
-    isPrivate: false
-    pathParameters: []
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: wrk_37686dffbc5f43c1a109c0f20a504806
-    parentId: null
-    modified: 1717944104399
-    created: 1696089052998
-    name: note_api
-    description: ""
-    scope: collection
-    _type: workspace
   - _id: req_0573be20e4a64c7886cef60a5d795cd2
     parentId: wrk_37686dffbc5f43c1a109c0f20a504806
-    modified: 1701389722661
+    modified: 1718666401197
     created: 1700258302452
     url: "{{ _.base_url }}/health"
     name: healthCheck
@@ -65,7 +24,7 @@ resources:
     authentication:
       type: bearer
       token: "{{ _.Authorization }}"
-    metaSortKey: -1696089257515
+    metaSortKey: -1718666318641
     isPrivate: false
     pathParameters: []
     settingStoreCookies: true
@@ -75,9 +34,17 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: wrk_37686dffbc5f43c1a109c0f20a504806
+    parentId: null
+    modified: 1717944104399
+    created: 1696089052998
+    name: note_api
+    description: ""
+    scope: collection
+    _type: workspace
   - _id: req_e6e0e49d97b64b239f698cdd275d7dda
-    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
-    modified: 1713056663690
+    parentId: fld_4c9e16a8406a4e76822367e7404dae71
+    modified: 1718666374737
     created: 1704056654124
     url: "{{ _.base_url }}/notes"
     name: getNotes
@@ -104,7 +71,7 @@ resources:
     authentication:
       type: bearer
       token: "{{ _.Authorization }}"
-    metaSortKey: -1696089257540
+    metaSortKey: -1718666363115
     isPrivate: false
     pathParameters: []
     settingStoreCookies: true
@@ -114,9 +81,19 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_8bab391c39224c7ab931d543a0c8b60a
+  - _id: fld_4c9e16a8406a4e76822367e7404dae71
     parentId: wrk_37686dffbc5f43c1a109c0f20a504806
-    modified: 1717944334675
+    modified: 1718666318541
+    created: 1718666318541
+    name: note
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1718666318541
+    _type: request_group
+  - _id: req_8bab391c39224c7ab931d543a0c8b60a
+    parentId: fld_73cede20ff5c405e9af000c75f2a33b3
+    modified: 1718666290393
     created: 1713056733543
     url: "{{ _.base_url }}/user"
     name: putUser
@@ -140,7 +117,133 @@ resources:
     authentication:
       type: bearer
       token: "{{ _.Authorization }}"
-    metaSortKey: -1713056733543
+    metaSortKey: -1718666282057
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_73cede20ff5c405e9af000c75f2a33b3
+    parentId: wrk_37686dffbc5f43c1a109c0f20a504806
+    modified: 1718666323490
+    created: 1718666232254
+    name: user
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1718666232254
+    _type: request_group
+  - _id: req_a3ed547eae994171b70e8e0b92fa6042
+    parentId: fld_73cede20ff5c405e9af000c75f2a33b3
+    modified: 1718666303035
+    created: 1696089257564
+    url: "{{ _.base_url }}/login"
+    name: login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "john.wick@gmail.com",
+        	"password": "john.wick"
+        }
+    preRequestScript: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.1.0
+    authentication: {}
+    metaSortKey: -1718666281957
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_748915f352044f0ba53919cbb894487a
+    parentId: fld_73cede20ff5c405e9af000c75f2a33b3
+    modified: 1718671471330
+    created: 1718666221434
+    url: "{{ _.base_url }}/user"
+    name: updateUser
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"id": "6420bdf4-a54a-40e7-8787-a86bf6a1d6ac",
+        	"username": "",
+        	"email": "",
+        	"password": "hash128bits"
+        }
+    preRequestScript: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.1.0
+    authentication:
+      type: bearer
+      token: "{{ _.Authorization }}"
+    metaSortKey: -1718666281857
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5fa10ae5661b4bed9f8ecc1c32abe468
+    parentId: fld_73cede20ff5c405e9af000c75f2a33b3
+    modified: 1718670434910
+    created: 1718570511359
+    url: "{{ _.base_url }}/user"
+    name: getUsers
+    description: ""
+    method: GET
+    body:
+      mimeType: application/json
+      text: ""
+    preRequestScript: ""
+    parameters:
+      - id: pair_173eeb6e820a4931b2f79d62a3ad19df
+        name: id
+        value: bd84f996-0413-4231-b5ab-c8741c093fec
+        description: ""
+        disabled: true
+      - id: pair_4e23506600cd4a93ac460b11564a4566
+        name: email
+        value: john.wick@gmail.com
+        description: ""
+        disabled: true
+      - id: pair_9fa5f383300342dd85e5f8f447d0a779
+        name: username
+        value: joe@gmail.com
+        description: ""
+        disabled: true
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.1.0
+    authentication:
+      type: bearer
+      token: "{{ _.Authorization }}"
+    metaSortKey: -1718666281757
     isPrivate: false
     pathParameters: []
     settingStoreCookies: true
