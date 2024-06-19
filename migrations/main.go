@@ -19,7 +19,7 @@ func main() {
   log.Printf("creating tables")
   db.AutoMigrate(&e.Note{}, &e.User{})
   log.Printf("starting seed")
-  dbSeed(db)
+  //dbSeed(db)
   log.Printf("finished successfuly")
 }
 

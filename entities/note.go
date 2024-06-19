@@ -1,8 +1,11 @@
 package entities
 
-import "time"
+import (
+  "time"
+)
 
 type Note struct {
+  Id      string `gorm:"primaryKey"`
   Author  string
   Title   string
   Content string
@@ -10,8 +13,9 @@ type Note struct {
   LastUpdate time.Time
 }
 
-func NewNote(author, title, content string, creation, lastUpdate time.Time) (n Note) {
+func NewNote(id, author, title, content string, creation, lastUpdate time.Time) (n Note) {
   return Note{
+    Id:         id,
     Author:     author,
     Title:      title,
     Content:    content,

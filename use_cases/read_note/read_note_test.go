@@ -19,7 +19,7 @@ var (
 
 func TestMain(m *testing.M) {
 	now := time.Now()
-	note = e.NewNote("john wick", "my note", "loren ipson and go on", now, now)
+	note = e.NewNote("1", "john wick", "my note", "loren ipson and go on", now, now)
 	noteRepo := NoteRepositoryMock{}
 	readNoteService = NewReadNoteService(&noteRepo)
 	errorMsgs = config.NewErrorMessages()
