@@ -13,6 +13,12 @@ type ReadUserController struct {
   errorMsgs *config.ErrorMessages
 }
 
+type userResponse struct {
+  Id       string `json:"id"`
+  Username string `json:"username"`
+  Email    string `json:"email"`
+}
+
 func NewReadUserController() *ReadUserController {
   return &ReadUserController{errorMsgs: config.NewErrorMessages()}
 }
@@ -37,8 +43,16 @@ func (c *ReadUserController) exec(w http.ResponseWriter, r *http.Request) {
     internalServerError(w, err)
     return
   }
+  var uResp []userResponse
+  for _, u := range users {
+    uResp = append(uResp, userResponse{
+      Id: u.Id,
+      Username: u.Username,
+      Email: u.Email,
+    })
+  }
   w.WriteHeader(http.StatusOK)
-  json.NewEncoder(w).Encode(users)
+  json.NewEncoder(w).Encode(uResp)
 }
 
 func internalServerError(w http.ResponseWriter, err error) {
