@@ -18,7 +18,7 @@ var (
 func TestMain(m *testing.M) {
   fmt.Println('T')
   now := time.Now().UTC()
-  note = e.NewNote("john", "My Note", "Loren ipson", now, now)
+  note = e.NewNote("1", "john", "My Note", "Loren ipson", now, now)
   repo := NoteRepositoryMock{}
   createNote = New(&repo)
   os.Exit(m.Run())
